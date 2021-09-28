@@ -10,8 +10,9 @@ const App = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const productData = await axios.get("localhost:5000/api/products")
+      const productData = await axios.get("http://localhost:5000/api/products")
       console.log(productData)
+      console.log(productData.data)
       setData(productData.data)
     }
     fetchProducts()
