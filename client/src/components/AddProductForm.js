@@ -8,7 +8,7 @@ const handleDisplayForm = (e) => {
   e.target.parentElement.nextSibling.nextSibling.style.display = "block"
 }
 
-function AddProductForm() {
+function AddProductForm({productData, setProductData}) {
   const [input, setInput] = useState({ title: "", price: "", quantity: "" })
 
   const handleFormSubmit = (e) => {
@@ -27,6 +27,7 @@ function AddProductForm() {
     const sendForm = async () => {
       try {
         const response = await axios.post("http://localhost:5000/api/products", input)
+        setProductData(productData.concat(response.data))
         setInput({ title: "", price: "", quantity: "" })
       } catch {
         console.log("You raised an error")

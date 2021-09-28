@@ -21,7 +21,7 @@ const App = () => {
       < Header />
       <main>
         < ProductListing data={data} />
-        < AddProductForm />
+        < AddProductForm productData={data} setProductData={setData}/>
       </main>
     </div>
   );
