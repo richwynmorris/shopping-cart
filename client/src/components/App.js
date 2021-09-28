@@ -2,14 +2,19 @@ import React from "react";
 import Header from "./Header";
 import ProductListing from "./ProductListing";
 import AddProductForm from "./AddProductForm";
-import data from "../lib/data";
 import { useState, useEffect } from "react";
+import axios from "axios"
 
 const App = () => {
-  const [ state, setState ] = useState([]);
+  const [ data, setData ] = useState([]);
 
   useEffect(() => {
-    setState(data)
+    const fetchProducts = async () => {
+      const productData = await axios.get("localhost:5000/api/products")
+      console.log(productData)
+      setData(productData.data)
+    }
+    fetchProducts()
   }, [])
 
   return (
