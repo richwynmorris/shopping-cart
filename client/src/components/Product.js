@@ -8,9 +8,9 @@ function Product({data}) {
         </h3>
         <p className="price">${data.price}</p>
         <p className="quantity">{data.quantity} left in stock</p>
-        <div class="actions product-actions">
-          <a class="button add-to-cart">Add to Cart</a>
-          <a class="button edit">Edit</a>
+        <div className="actions product-actions">
+          <a className="button add-to-cart">Add to Cart</a>
+          <a className="button edit">Edit</a>
         </div>
         <a className="delete-button"><span>X</span></a>
       </div>

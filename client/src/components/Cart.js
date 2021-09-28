@@ -8,7 +8,7 @@ function Cart(props) {
         <h2>Your Cart</h2>
         <p>Your cart is empty</p>
         <p>Total: $0</p>
-        <a class="button checkout disabled">Checkout</a>
+        <a className="button checkout disabled">Checkout</a>
       </div>
     );
   } else {
@@ -16,7 +16,7 @@ function Cart(props) {
       <div className="cart">
         <h2>Your Cart</h2>
         < CartTable />
-        <a class="button checkout">Checkout</a>
+        <a className="button checkout">Checkout</a>
       </div>
     );
   }

@@ -3,7 +3,7 @@ import CartItem from "./CartItem";
 function CartTable() {
   // TODO: map and reduce methods to create rows and total
   return (
-    <table class="cart-items">
+    <table className="cart-items">
       <tbody><tr>
         <th>Item</th>
         <th>Quantity</th>
