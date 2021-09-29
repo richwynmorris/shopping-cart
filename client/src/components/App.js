@@ -6,22 +6,38 @@ import { useState, useEffect } from "react";
 import axios from "axios"
 
 const App = () => {
-  const [ data, setData ] = useState([]);
+  const [ productData, setProductData ] = useState([]);
+  const [ cart, setCart ] = useState([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const productData = await axios.get("http://localhost:5000/api/products")
-      setData(productData.data)
+      const response = await axios.get("http://localhost:5000/api/products")
+      try {
+        setProductData(response.data);
+      } catch{
+        console.log(response);
+      }
     }
-    fetchProducts()
+
+    const fetchCart = async () => {
+      const response = await axios.get("http://localhost:5000/api/cart");
+      try {
+        setCart(response.data);
+      } catch {
+        console.log(response);
+      }
+    }
+
+    fetchProducts();
+    fetchCart();
   }, [])
 
   return (
     <div id="app">
-      < Header />
+      < Header cart={cart} />
       <main>
-        < ProductListing data={data} />
-        < AddProductForm productData={data} setProductData={setData}/>
+        < ProductListing productData={productData} setProductData={setProductData} cart={cart} setCart={setCart} />
+        < AddProductForm productData={productData} setProductData={setProductData}/>
       </main>
     </div>
   );

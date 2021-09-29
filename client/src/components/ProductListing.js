@@ -1,12 +1,12 @@
 import Product from "./Product";
 
-function ProductListing({data}) {
+function ProductListing({productData, setProductData, cart, setCart}) {
   return (
     <div className="product-listing">
       <h2>Products</h2>
-      {data.map((obj) => {
+      {productData.map((product) => {
         return (
-          < Product data={obj} key={obj.id}/>
+          < Product product={product} productData={productData} setProductData={setProductData} cart={cart} setCart={setCart} key={product.id}/>
         )
       })}
     </div>

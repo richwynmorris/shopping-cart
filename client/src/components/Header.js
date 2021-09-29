@@ -1,10 +1,10 @@
 import Cart from "./Cart";
 
-function Header() {
+function Header({cart}) {
   return (
     <header>
       <h1>The Shop!</h1>
-      < Cart />
+      < Cart cart={cart} />
     </header>
   );
 }

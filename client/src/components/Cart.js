@@ -1,8 +1,11 @@
 import CartTable from "./CartTable";
 
-function Cart(props) {
+function Cart({cart}) {
   // TODO: use props to get length of cart items and render UI
-  if (true) {
+
+  const emptyCart = cart.length === 0 ? true : false;
+
+  if (emptyCart) {
     return (
       <div className="cart">
         <h2>Your Cart</h2>
@@ -15,7 +18,7 @@ function Cart(props) {
     return (
       <div className="cart">
         <h2>Your Cart</h2>
-        < CartTable />
+        < CartTable cart={cart} />
         <a className="button checkout">Checkout</a>
       </div>
     );

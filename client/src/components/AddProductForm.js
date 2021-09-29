@@ -1,66 +1,78 @@
 import axios from "axios"
 import { useState } from "react"
 
-const handleDisplayForm = (e) => {
-  e.preventDefault()
-  e.target.style.display = "none"
-  e.target.parentElement.nextSibling.style.display = "block"
-  e.target.parentElement.nextSibling.nextSibling.style.display = "block"
-}
-
 function AddProductForm({productData, setProductData}) {
-  const [input, setInput] = useState({ title: "", price: "", quantity: "" })
+  // Srdjan: use states with primitives rather than objects
+  const [ title, setTitle ] = useState("");
+  const [ price, setPrice ] = useState("");
+  const [ quantity, setQuantity ] = useState("");
+  const [ isVisible, setIsVisible ] = useState(false);
 
   const handleFormSubmit = (e) => {
-    if ( Number.isNaN(Number(input.price)) ) {
-      input.price = 0 
-    } else {
-      input.price = Number(input.price)
+    const input = {
+      title,
     }
 
-    if ( Number.isNaN(Number(input.quantity)) ) {
-      input.quantity = 0 
+    if ( Number.isNaN(Number(price)) ) {
+      input.price = 0
     } else {
-      input.quantity = Number(input.quantity)
+      input.price = Number(price)
+    }
+
+    if ( Number.isNaN(Number(quantity)) ) {
+      input.quantity = 0
+    } else {
+      input.quantity = Number(quantity)
     }
 
     const sendForm = async () => {
       try {
         const response = await axios.post("http://localhost:5000/api/products", input)
+
         setProductData(productData.concat(response.data))
-        setInput({ title: "", price: "", quantity: "" })
+        setTitle("");
+        setPrice("");
+        setQuantity("");
+        handleToggleDisplayForm()
+
       } catch {
         console.log("You raised an error")
-      }  
+      }
     }
     sendForm()
   }
 
+  const handleToggleDisplayForm = () => {
+    setIsVisible(!isVisible);
+  }
+
+  const formClass = isVisible ? "add-form visible" : "add-form";
+
   return (
-    <div className="add-form" >
-      <p>
-        <a className="button add-product-button" onClick={handleDisplayForm}>Add A Product</a>
+    <div className={formClass} >
+      <p id="add-product-button">
+        <a className="button add-product-button" onClick={handleToggleDisplayForm}>Add A Product</a>
       </p>
       <h3>Add Product</h3>
       <form>
         <div className="input-group">
           <label for="product-name">Product Name</label>
-          <input type="text" id="product-name" value={input.title} onChange={(e) => setInput({...input, title:e.target.value})}/>
+          <input type="text" id="product-name" value={title} onChange={(e) => setTitle(e.target.value)}/>
         </div>
 
         <div className="input-group">
           <label for="product-price">Price</label>
-          <input type="text" id="product-price" value={input.price} onChange={(e) => setInput({...input, price:e.target.value})}/>
+          <input type="text" id="product-price" value={price} onChange={(e) => setPrice(e.target.value)}/>
         </div>
 
         <div className="input-group">
           <label for="product-quantity">Quantity</label>
-          <input type="text" id="product-quantity" value={input.quantity} onChange={(e) => setInput({...input, quantity:e.target.value})}/>
+          <input type="text" id="product-quantity" value={quantity} onChange={(e) => setQuantity(e.target.value)}/>
         </div>
 
         <div className="actions form-actions">
           <a className="button" onClick={handleFormSubmit}>Add</a>
-          <a className="button">Cancel</a>
+          <a className="button" onClick={handleToggleDisplayForm}>Cancel</a>
         </div>
       </form>
     </div>
