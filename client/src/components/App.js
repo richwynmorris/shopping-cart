@@ -9,27 +9,30 @@ const App = () => {
   const [ productData, setProductData ] = useState([]);
   const [ cart, setCart ] = useState([]);
 
+  const fetchProducts = async () => {
+    const response = await axios.get("http://localhost:5000/api/products")
+    try {
+      setProductData(response.data);
+    } catch{
+      console.log(response);
+    }
+  }
+
+  const fetchCart = async () => {
+    const response = await axios.get("http://localhost:5000/api/cart");
+    try {
+      setCart(response.data);
+    } catch {
+      console.log(response);
+    }
+  }
+
   useEffect(() => {
-    const fetchProducts = async () => {
-      const response = await axios.get("http://localhost:5000/api/products")
-      try {
-        setProductData(response.data);
-      } catch{
-        console.log(response);
-      }
-    }
-
-    const fetchCart = async () => {
-      const response = await axios.get("http://localhost:5000/api/cart");
-      try {
-        setCart(response.data);
-      } catch {
-        console.log(response);
-      }
-    }
-
-    fetchProducts();
     fetchCart();
+  }, [])
+
+  useEffect(() => {
+    fetchProducts();
   }, [])
 
   return (
