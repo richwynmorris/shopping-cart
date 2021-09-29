@@ -21,7 +21,7 @@ function CartTable({cart}) {
         })}
       <tr>
         <td colspan="3" className="total">Total: ${cart.reduce((acc, item) => {
-            return (acc + item.price) * item.quantity
+            return acc + (item.price * item.quantity);
           }, 0)}</td>
       </tr>
     </tbody></table>

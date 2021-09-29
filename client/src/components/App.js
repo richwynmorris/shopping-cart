@@ -27,6 +27,7 @@ const App = () => {
     }
   }
 
+  // The first hook is processed last
   useEffect(() => {
     fetchCart();
   }, [])
@@ -37,7 +38,7 @@ const App = () => {
 
   return (
     <div id="app">
-      < Header cart={cart} />
+      < Header cart={cart} setCart={setCart} />
       <main>
         < ProductListing productData={productData} setProductData={setProductData} cart={cart} setCart={setCart} />
         < AddProductForm productData={productData} setProductData={setProductData}/>

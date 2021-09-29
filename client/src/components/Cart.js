@@ -1,9 +1,24 @@
+import axios from "axios";
 import CartTable from "./CartTable";
 
-function Cart({cart}) {
+function Cart({cart, setCart}) {
   // TODO: use props to get length of cart items and render UI
 
   const emptyCart = cart.length === 0 ? true : false;
+
+  const handleDeleteCart = async () => {
+    const response = await axios.post(`http://localhost:5000/api/cart/checkout`);
+    setCart([]);
+
+    // Why is this not working? Should update UI but isn't!
+
+    try {
+      console.log("Success!")
+    } catch {
+      console.log("response");
+      console.log(response);
+    }
+  }
 
   if (emptyCart) {
     return (
@@ -19,7 +34,7 @@ function Cart({cart}) {
       <div className="cart">
         <h2>Your Cart</h2>
         < CartTable cart={cart} />
-        <a className="button checkout">Checkout</a>
+        <a className="button checkout" onClick={handleDeleteCart}>Checkout</a>
       </div>
     );
   }

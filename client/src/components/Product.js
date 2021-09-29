@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import EditForm from "./EditForm";
 
-function Product({product, productData, setProductData}) {
+function Product({product, productData, setProductData, cart, setCart}) {
   const [ editFormIsVisible, setEditFormIsVisible ] = useState(false);
 
   const handleProductDeletion = async (e) => {
@@ -19,15 +19,47 @@ function Product({product, productData, setProductData}) {
     }
   }
 
-  const handleAddToCart = () => {
-    const stock = product.quantity;
-    // If the product already exists in the cart
-      // If stock > number of times product is in stock
-        // Increase cart quantity by 1
-      // Else
-        // Don't change it
-    // Else the product isnt in the cart
-      // Add cart item with quantity of 1
+  const handleDeleteCart = async (newCart = []) => {
+    const response = await axios.post(`http://localhost:5000/api/cart/checkout`);
+
+    try {
+      setCart(newCart);
+    } catch {
+      console.log(response);
+    }
+  }
+
+  const handleAddToCart = async () => {
+    const cartItem = {
+      productId: product._id,
+      title: product.title,
+      price: product.price,
+    };
+
+    const response = await axios.post(`http://localhost:5000/api/cart`, cartItem);
+
+    try {
+      const existingCartItem = cart.filter(obj => obj._id === product._id).length === 1;
+
+      if (existingCartItem) {
+        // Change state of cart to add +1 quantity
+        const newCart = cart.map(obj => {
+          if (obj._id === product._id) {
+            obj.quantity += 1;
+            return obj;
+          } else {
+            return obj;
+          }
+        });
+        setCart(newCart);
+      } else {
+        // concatenate to array and add the response.data object
+        const newCart = [...cart, response.data];
+        setCart(newCart);
+      }
+    } catch {
+      console.log(response);
+    }
   }
 
   const handleToggleEditForm = () => {
