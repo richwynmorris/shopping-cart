@@ -1,29 +1,24 @@
 import axios from "axios";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import cartActions from "../actions/cart";
 import EditForm from "./EditForm";
 
-function Product({product, productData, setProductData, cart, setCart}) {
+function Product({product, productData, setProductData }) {
+  const dispatch = useDispatch()
   const [ editFormIsVisible, setEditFormIsVisible ] = useState(false);
-
+  const cart = useSelector(state => state.cart)
+  
   const handleProductDeletion = async (e) => {
-    const anchorTag = e.target.nodeName == "SPAN" ? e.target.parentNode : e.target;
+    const anchorTag = e.target.nodeName === "SPAN" ? e.target.parentNode : e.target;
     const productId = anchorTag.dataset.id;
     const url = `http://localhost:5000/api/products/${productId}`;
 
     try {
-      const response = await axios.delete(`${url}`);
+      await axios.delete(`${url}`);
       anchorTag.parentElement.parentElement.style.display = "none";
     } catch (e) {
       console.log(e)
-    }
-  }
-
-  const handleDeleteCart = async (newCart = []) => {
-    try {
-      const response = await axios.post(`http://localhost:5000/api/cart/checkout`);
-      setCart(newCart);
-    } catch (e) {
-      console.log(e);
     }
   }
 
@@ -48,13 +43,13 @@ function Product({product, productData, setProductData, cart, setCart}) {
             return obj;
           }
         });
-        setCart(newCart);
+        dispatch(cartActions.set(newCart))
       } else {
         // concatenate to array and add the response.data object
         const newCart = [...cart, response.data];
-        setCart(newCart);
+        dispatch(cartActions.set(newCart))
       }
-    } catch {
+    } catch (e) {
       console.log(e);
     }
   }

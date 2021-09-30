@@ -1,7 +1,8 @@
-import CartItem from "./CartItem";
+import { useSelector } from "react-redux"
 
-function CartTable({cart}) {
-  // TODO: map and reduce methods to create rows and total
+function CartTable() {
+  const cart = useSelector(state => state.cart)
+
   return (
     <table className="cart-items">
       <tbody>
