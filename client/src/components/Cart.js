@@ -8,19 +8,18 @@ import cartActions from "../actions/cart";
 function Cart() {
   const dispatch = useDispatch()
   const cart = useSelector(state => state.cart)
-  
-  const fetchCart = async () => {
-    try {
-      const response = await axios.get("http://localhost:5000/api/cart");
-      dispatch(cartActions.set(response.data))
-    } catch (e) {
-      console.log(e);
-    }
-  }
 
   useEffect(() => {
-    fetchCart();
-  }, [])
+    const fetchCart = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/cart");
+        dispatch(cartActions.set(response.data))
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    fetchCart()
+  }, [dispatch])
 
   const emptyCart = cart.length === 0 ? true : false;
 
