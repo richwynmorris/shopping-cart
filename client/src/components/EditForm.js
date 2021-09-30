@@ -38,8 +38,8 @@ const EditForm = ({product, productData, setProductData, toggleForm}) => {
       });
 
       setProductData(newState);
-    } catch {
-      console.log(response);
+    } catch (e) {
+      console.log(e);
     }
   }
 
