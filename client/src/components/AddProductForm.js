@@ -35,8 +35,8 @@ function AddProductForm({productData, setProductData}) {
         setQuantity("");
         handleToggleDisplayForm()
 
-      } catch {
-        console.log("You raised an error")
+      } catch (e) {
+        console.log(e)
       }
     }
     sendForm()
