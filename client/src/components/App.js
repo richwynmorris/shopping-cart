@@ -10,20 +10,20 @@ const App = () => {
   const [ cart, setCart ] = useState([]);
 
   const fetchProducts = async () => {
-    const response = await axios.get("http://localhost:5000/api/products")
     try {
+      const response = await axios.get("http://localhost:5000/api/products")
       setProductData(response.data);
-    } catch{
-      console.log(response);
+    } catch (e) {
+      console.log(e);
     }
   }
 
   const fetchCart = async () => {
-    const response = await axios.get("http://localhost:5000/api/cart");
     try {
+      const response = await axios.get("http://localhost:5000/api/cart");
       setCart(response.data);
-    } catch {
-      console.log(response);
+    } catch (e) {
+      console.log(e);
     }
   }
 

@@ -7,16 +7,13 @@ function Cart({cart, setCart}) {
   const emptyCart = cart.length === 0 ? true : false;
 
   const handleDeleteCart = async () => {
-    const response = await axios.post(`http://localhost:5000/api/cart/checkout`);
-    setCart([]);
-
     // Why is this not working? Should update UI but isn't!
 
     try {
-      console.log("Success!")
-    } catch {
-      console.log("response");
-      console.log(response);
+      const response = await axios.post(`http://localhost:5000/api/cart/checkout`);
+      setCart([]);
+    } catch (e) {
+      console.log(e);
     }
   }
 

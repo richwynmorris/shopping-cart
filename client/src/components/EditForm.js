@@ -24,9 +24,9 @@ const EditForm = ({product, productData, setProductData, toggleForm}) => {
       input.quantity = Number(quantity)
     }
 
-    const response = await axios.put(url, input);
 
     try {
+      const response = await axios.put(url, input);
       toggleForm();
 
       const newState = productData.map((obj) => {

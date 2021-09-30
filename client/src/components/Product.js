@@ -7,25 +7,23 @@ function Product({product, productData, setProductData, cart, setCart}) {
 
   const handleProductDeletion = async (e) => {
     const anchorTag = e.target.nodeName == "SPAN" ? e.target.parentNode : e.target;
-
     const productId = anchorTag.dataset.id;
     const url = `http://localhost:5000/api/products/${productId}`;
-    const response = await axios.delete(`${url}`);
 
     try {
+      const response = await axios.delete(`${url}`);
       anchorTag.parentElement.parentElement.style.display = "none";
-    } catch {
-      console.log(response)
+    } catch (e) {
+      console.log(e)
     }
   }
 
   const handleDeleteCart = async (newCart = []) => {
-    const response = await axios.post(`http://localhost:5000/api/cart/checkout`);
-
     try {
+      const response = await axios.post(`http://localhost:5000/api/cart/checkout`);
       setCart(newCart);
-    } catch {
-      console.log(response);
+    } catch (e) {
+      console.log(e);
     }
   }
 
@@ -36,9 +34,8 @@ function Product({product, productData, setProductData, cart, setCart}) {
       price: product.price,
     };
 
-    const response = await axios.post(`http://localhost:5000/api/cart`, cartItem);
-
     try {
+      const response = await axios.post(`http://localhost:5000/api/cart`, cartItem);
       const existingCartItem = cart.filter(obj => obj._id === product._id).length === 1;
 
       if (existingCartItem) {
@@ -58,7 +55,7 @@ function Product({product, productData, setProductData, cart, setCart}) {
         setCart(newCart);
       }
     } catch {
-      console.log(response);
+      console.log(e);
     }
   }
 
