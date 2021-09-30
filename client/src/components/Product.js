@@ -31,7 +31,11 @@ function Product({product, productData, setProductData }) {
 
     try {
       const response = await axios.post(`http://localhost:5000/api/cart`, cartItem);
-      const existingCartItem = cart.filter(obj => obj._id === product._id).length === 1;
+      const existingCartItem = cart.filter(obj => obj._id === response.data._id).length === 1;
+
+      console.log(cart)
+      console.log(existingCartItem)
+      console.log(response.data)
 
       if (existingCartItem) {
         // Change state of cart to add +1 quantity
