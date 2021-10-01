@@ -1,7 +1,10 @@
 const cart = (state = [], action) => {
   switch(action.type) {
     case "SET_CART":
-      return action.payload
+      return {
+        ...state,
+        cart: action.payload
+      }
     case "CLEAR_CART":
       return []
     default:

@@ -3,6 +3,8 @@ import { useSelector } from "react-redux"
 function CartTable() {
   const cart = useSelector(state => state.cart)
 
+  console.log(cart)
+
   return (
     <table className="cart-items">
       <tbody>
