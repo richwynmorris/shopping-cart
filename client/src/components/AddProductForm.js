@@ -1,16 +1,17 @@
 import axios from "axios"
 import { useState } from "react"
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import productDataActions from "../actions/productDataActions";
 
-function AddProductForm({productData, setProductData}) {
+function AddProductForm() {
   // Srdjan: use states with primitives rather than objects
   const [ title, setTitle ] = useState("");
   const [ price, setPrice ] = useState("");
   const [ quantity, setQuantity ] = useState("");
   const [ isVisible, setIsVisible ] = useState(false);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const productData = useSelector(state => state.productData);
 
   const handleFormSubmit = (e) => {
     const input = {
@@ -32,7 +33,7 @@ function AddProductForm({productData, setProductData}) {
     const sendForm = async () => {
       try {
         const response = await axios.post("http://localhost:5000/api/products", input)
-        const newProductList = productData.concat(response.data);
+        const newProductList = [...productData, response.data];
 
         dispatch(productDataActions.set(newProductList));
 

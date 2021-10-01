@@ -1,10 +1,15 @@
 import { useState } from "react";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import productDataActions from "../actions/productDataActions";
 
-const EditForm = ({product, productData, setProductData, toggleForm}) => {
+const EditForm = ({product, toggleForm}) => {
   const [ title, setTitle ] = useState(product.title);
   const [ price, setPrice ] = useState(product.price);
   const [ quantity, setQuantity ] = useState(product.quantity);
+
+  const dispatch = useDispatch();
+  const productData = useSelector(state => state.productData);
 
   const handleProductUpdate = async () => {
     const url = `http://localhost:5000/api/products/${product._id}`;
@@ -37,7 +42,7 @@ const EditForm = ({product, productData, setProductData, toggleForm}) => {
         }
       });
 
-      setProductData(newState);
+      dispatch(productDataActions.set(newState));
     } catch (e) {
       console.log(e);
     }

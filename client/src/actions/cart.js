@@ -1,7 +1,13 @@
-const set = (data) => {
+const setCartItems = (data) => {
   return {
-    type: "SET_CART",
+    type: "SET_CART_ITEMS",
     data,
+  }
+}
+
+const updateCartItem = () => {
+  return {
+    type: "UPDATE_CART_ITEM",
   }
 }
 

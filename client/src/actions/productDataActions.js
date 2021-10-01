@@ -1,11 +1,20 @@
-const set = (data) => {
+// Changed action name
+const setProducts = (data) => {
   return {
-    type: "SET_PRODUCT",
+    type: "SET_PRODUCTS",
     data,
   }
 }
 
-const remove = (id) => {
+const updateProduct = (id) => {
+  return {
+    type: "UPDATE_PRODUCT",
+    id,
+  }
+}
+
+// Changed action name
+const removeProduct = (id) => {
   return {
     type: "DELETE_PRODUCT",
     id,

@@ -1,12 +1,13 @@
 const productData = (state = [], action) => {
   switch (action.type) {
-    case "SET_PRODUCT":
-      console.log(action.data)
+    case "SET_PRODUCTS":
       return action.data;
+    case "UPDATE_PRODUCT":
+      // Change all the state and return the new state
+      // Use action.id to identify the product to change
+      return state;
     case "DELETE_PRODUCT":
-      console.log(state)
-      const newState = state.filter(obj => obj._id != action.id); // TO DO: remove product in here with action.id, then return new state
-      console.log(newState)
+      const newState = state.filter(obj => obj._id != action.id);
       return newState;
     default:
       return state
