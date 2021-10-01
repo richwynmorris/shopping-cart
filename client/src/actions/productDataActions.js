@@ -1,14 +1,14 @@
 const set = (data) => {
   return {
     type: "SET_PRODUCT_DATA",
-    payload: data
+    data,
   }
 }
 
-const remove = (data) => {
+const remove = (id) => {
   return {
     type: "DELETE_PRODUCT_DATA",
-    payload: data
+    id,
   }
 }
 

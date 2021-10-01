@@ -2,13 +2,14 @@ import axios from "axios";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import cartActions from "../actions/cart";
+import productDataActions from "../actions/productDataActions";
 import EditForm from "./EditForm";
 
 function Product({product, productData, setProductData }) {
   const dispatch = useDispatch()
   const [ editFormIsVisible, setEditFormIsVisible ] = useState(false);
   const cart = useSelector(state => state.cart)
-  
+
   const handleProductDeletion = async (e) => {
     const anchorTag = e.target.nodeName === "SPAN" ? e.target.parentNode : e.target;
     const productId = anchorTag.dataset.id;
@@ -16,7 +17,8 @@ function Product({product, productData, setProductData }) {
 
     try {
       await axios.delete(`${url}`);
-      anchorTag.parentElement.parentElement.style.display = "none";
+      dispatch(productDataActions.remove(productId));
+      // anchorTag.parentElement.parentElement.style.display = "none";
     } catch (e) {
       console.log(e)
     }
@@ -33,20 +35,17 @@ function Product({product, productData, setProductData }) {
       const response = await axios.post(`http://localhost:5000/api/cart`, cartItem);
       const existingCartItem = cart.filter(obj => obj._id === response.data._id).length === 1;
 
-      console.log(cart)
-      console.log(existingCartItem)
-      console.log(response.data)
-
       if (existingCartItem) {
         // Change state of cart to add +1 quantity
         const newCart = cart.map(obj => {
-          if (obj._id === product._id) {
+          if (obj.productId === product._id) {
             obj.quantity += 1;
             return obj;
           } else {
             return obj;
           }
         });
+
         dispatch(cartActions.set(newCart))
       } else {
         // concatenate to array and add the response.data object

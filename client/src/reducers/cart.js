@@ -1,15 +1,12 @@
 const cart = (state = [], action) => {
   switch(action.type) {
     case "SET_CART":
-      return {
-        ...state,
-        cart: action.payload
-      }
+      return action.data;
     case "CLEAR_CART":
-      return []
+      return [];
     default:
-      return state
+      return state;
   }
 }
 
-export default cart
+export default cart;
