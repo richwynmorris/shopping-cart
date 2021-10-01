@@ -1,13 +1,13 @@
 const set = (data) => {
   return {
-    type: "SET_PRODUCT_DATA",
+    type: "SET_PRODUCT",
     data,
   }
 }
 
 const remove = (id) => {
   return {
-    type: "DELETE_PRODUCT_DATA",
+    type: "DELETE_PRODUCT",
     id,
   }
 }

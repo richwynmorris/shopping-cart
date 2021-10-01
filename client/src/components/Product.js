@@ -1,13 +1,15 @@
-import axios from "axios";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+
 import cartActions from "../actions/cart";
 import productDataActions from "../actions/productDataActions";
 import EditForm from "./EditForm";
 
-function Product({product, productData, setProductData }) {
-  const dispatch = useDispatch()
+function Product({ product }) {
   const [ editFormIsVisible, setEditFormIsVisible ] = useState(false);
+
+  const dispatch = useDispatch()
   const cart = useSelector(state => state.cart)
 
   const handleProductDeletion = async (e) => {
@@ -75,7 +77,7 @@ function Product({product, productData, setProductData }) {
           <p className={quantityStatus}>{product.quantity} left in stock</p>
           <a className="delete-button" data-id={product._id} onClick={handleProductDeletion}><span>X</span></a>
         </div>
-        < EditForm product={product} productData={productData} setProductData={setProductData} toggleForm={handleToggleEditForm} />
+        < EditForm product={product} toggleForm={handleToggleEditForm} />
       </div>
     )
   } else {
