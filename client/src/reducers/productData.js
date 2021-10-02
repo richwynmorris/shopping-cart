@@ -2,10 +2,27 @@ const productData = (state = [], action) => {
   switch (action.type) {
     case "SET_PRODUCTS":
       return action.data;
+    case "ADD_PRODUCT":
+      return [...state, action.data]
     case "UPDATE_PRODUCT":
-      // Change all the state and return the new state
-      // Use action.id to identify the product to change
-      return state;
+      const editedState = state.map((obj) => {
+        if (obj._id === action.id) {
+          return action.data;
+        } else {
+          return obj;
+        }
+      });
+      return editedState;
+    case "DECREMENT_PRODUCT":
+      console.log(state)
+      const updatedQuantityState = state.map((obj) => {
+        if (obj._id === action.id) {
+          return action.data
+        } else {
+          return obj
+        }
+      })
+      return updatedQuantityState;
     case "DELETE_PRODUCT":
       const newState = state.filter(obj => obj._id != action.id);
       return newState;

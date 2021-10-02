@@ -5,16 +5,18 @@ const setCartItems = (data) => {
   }
 }
 
-const updateCartItem = () => {
+const addCartItem = (id, data) => {
   return {
-    type: "UPDATE_CART_ITEM",
+    type: "ADD_CART_ITEM",
+    id,
+    data
   }
 }
 
-const clear = () => {
+const clearCartItems = () => {
   return {
     type: "CLEAR_CART"
   }
 }
 
-export default { set, clear }
+export default { setCartItems, clearCartItems, addCartItem }

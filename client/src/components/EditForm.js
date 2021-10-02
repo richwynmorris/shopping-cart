@@ -32,17 +32,8 @@ const EditForm = ({product, toggleForm}) => {
 
     try {
       const response = await axios.put(url, input);
+      dispatch(productDataActions.updateProduct(response.data._id, response.data));
       toggleForm();
-
-      const newState = productData.map((obj) => {
-        if (obj._id === product._id) {
-          return response.data;
-        } else {
-          return obj;
-        }
-      });
-
-      dispatch(productDataActions.set(newState));
     } catch (e) {
       console.log(e);
     }

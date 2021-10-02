@@ -4,7 +4,6 @@ import axios from "axios";
 import CartTable from "./CartTable";
 import cartActions from "../actions/cart";
 
-
 function Cart() {
   const dispatch = useDispatch()
   const cart = useSelector(state => state.cart)
@@ -13,7 +12,7 @@ function Cart() {
     const fetchCart = async () => {
       try {
         const response = await axios.get("http://localhost:5000/api/cart");
-        dispatch(cartActions.set(response.data))
+        dispatch(cartActions.setCartItems(response.data))
       } catch (e) {
         console.log(e);
       }
@@ -26,7 +25,7 @@ function Cart() {
   const handleDeleteCart = async () => {
     try {
       await axios.post(`http://localhost:5000/api/cart/checkout`);
-      dispatch(cartActions.clear());
+      dispatch(cartActions.clearCartItems());
     } catch (e) {
       console.log(e);
     }

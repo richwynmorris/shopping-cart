@@ -7,7 +7,6 @@ import productDataActions from "../actions/productDataActions";
 import Product from "./Product";
 
 function ProductListing() {
-
   const productData = useSelector(state => state.productData);
   const dispatch = useDispatch();
 
@@ -15,7 +14,7 @@ function ProductListing() {
     const fetchProducts = async () => {
       try {
         const response = await axios.get("http://localhost:5000/api/products")
-        dispatch(productDataActions.set(response.data));
+        dispatch(productDataActions.setProducts(response.data));
       } catch (e) {
         console.log(e);
       }

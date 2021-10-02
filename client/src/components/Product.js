@@ -19,8 +19,7 @@ function Product({ product }) {
 
     try {
       await axios.delete(`${url}`);
-      dispatch(productDataActions.remove(productId));
-      // anchorTag.parentElement.parentElement.style.display = "none";
+      dispatch(productDataActions.removeProduct(productId));
     } catch (e) {
       console.log(e)
     }
@@ -33,27 +32,14 @@ function Product({ product }) {
       price: product.price,
     };
 
+    if ( addToCartStatus === "button add-to-cart disabled") { return  }
+
     try {
+      product.quantity -= 1
+      await axios.put(`http://localhost:5000/api/products/${product._id}`, product)
+      dispatch(productDataActions.decrementProductQuantity(product._id, product))
       const response = await axios.post(`http://localhost:5000/api/cart`, cartItem);
-      const existingCartItem = cart.filter(obj => obj._id === response.data._id).length === 1;
-
-      if (existingCartItem) {
-        // Change state of cart to add +1 quantity
-        const newCart = cart.map(obj => {
-          if (obj.productId === product._id) {
-            obj.quantity += 1;
-            return obj;
-          } else {
-            return obj;
-          }
-        });
-
-        dispatch(cartActions.set(newCart))
-      } else {
-        // concatenate to array and add the response.data object
-        const newCart = [...cart, response.data];
-        dispatch(cartActions.set(newCart))
-      }
+      dispatch(cartActions.addCartItem(response.data._id, response.data))   
     } catch (e) {
       console.log(e);
     }

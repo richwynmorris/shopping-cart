@@ -6,10 +6,11 @@ const setProducts = (data) => {
   }
 }
 
-const updateProduct = (id) => {
+const updateProduct = (id, data) => {
   return {
     type: "UPDATE_PRODUCT",
     id,
+    data
   }
 }
 
@@ -21,4 +22,19 @@ const removeProduct = (id) => {
   }
 }
 
-export default { set, remove }
+const addProduct = (data) => {
+  return {
+    type: "ADD_PRODUCT",
+    data
+  }
+}
+
+const decrementProductQuantity = (id, data) => {
+  return {
+    type: "DECREMENT_PRODUCT",
+    id,
+    data
+  }
+}
+
+export default { setProducts, updateProduct, removeProduct, addProduct, decrementProductQuantity }

@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import productDataActions from "../actions/productDataActions";
 
 function AddProductForm() {
-  // Srdjan: use states with primitives rather than objects
   const [ title, setTitle ] = useState("");
   const [ price, setPrice ] = useState("");
   const [ quantity, setQuantity ] = useState("");
@@ -33,15 +32,11 @@ function AddProductForm() {
     const sendForm = async () => {
       try {
         const response = await axios.post("http://localhost:5000/api/products", input)
-        const newProductList = [...productData, response.data];
-
-        dispatch(productDataActions.set(newProductList));
-
+        dispatch(productDataActions.addProduct(response.data));
         setTitle("");
         setPrice("");
         setQuantity("");
         handleToggleDisplayForm()
-
       } catch (e) {
         console.log(e)
       }
