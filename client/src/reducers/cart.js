@@ -3,14 +3,20 @@ const cart = (state = [], action) => {
     case "SET_CART_ITEMS":
       return action.data;
     case "ADD_CART_ITEM":
-      const newState = state.map(obj => {
-        if (obj._id === action.id) {
-          return action.data
-        } else {
-          return obj
-        }
-      }) 
-      return newState
+      if (state.length === 0) {
+        return state.concat(action.data)
+      } else {
+        const newState = state.map(obj => {
+          if (obj._id === action.id) {
+            return action.data
+          } else {
+            return obj
+          }
+        }) 
+        return newState
+      }
+
+
     case "CLEAR_CART":
       return [];
     default:
@@ -19,3 +25,4 @@ const cart = (state = [], action) => {
 }
 
 export default cart;
+

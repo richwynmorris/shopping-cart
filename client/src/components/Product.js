@@ -8,9 +8,9 @@ import EditForm from "./EditForm";
 
 function Product({ product }) {
   const [ editFormIsVisible, setEditFormIsVisible ] = useState(false);
-
-  const dispatch = useDispatch()
   const cart = useSelector(state => state.cart)
+  const productData = useSelector(state => state.productData)
+  const dispatch = useDispatch()
 
   const handleProductDeletion = async (e) => {
     const anchorTag = e.target.nodeName === "SPAN" ? e.target.parentNode : e.target;
@@ -36,10 +36,11 @@ function Product({ product }) {
 
     try {
       product.quantity -= 1
-      await axios.put(`http://localhost:5000/api/products/${product._id}`, product)
+      await axios.put(`http://localhost:5000/api/products/${product._id}`, product).then()
       dispatch(productDataActions.decrementProductQuantity(product._id, product))
+
       const response = await axios.post(`http://localhost:5000/api/cart`, cartItem);
-      dispatch(cartActions.addCartItem(response.data._id, response.data))   
+      dispatch(cartActions.addCartItem(response.data._id, response.data))
     } catch (e) {
       console.log(e);
     }

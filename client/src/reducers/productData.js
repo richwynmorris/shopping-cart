@@ -14,7 +14,6 @@ const productData = (state = [], action) => {
       });
       return editedState;
     case "DECREMENT_PRODUCT":
-      console.log(state)
       const updatedQuantityState = state.map((obj) => {
         if (obj._id === action.id) {
           return action.data
